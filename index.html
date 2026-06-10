@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Uma SPA romântica com player, linha do tempo, mini-jogo e surpresa final.">
+  <title>White Ferrari | Nossa História</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <main id="app" class="app-shell">
+    <section id="player-section" class="screen screen--active hero-screen" aria-labelledby="hero-title">
+      <article class="music-card" aria-label="Player romântico">
+        <div class="cover-wrap">
+          <img
+            class="album-cover"
+            src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=900&q=85"
+            alt="Casal de mãos dadas em uma luz suave"
+          >
+          <span class="listening-chip">tocando agora</span>
+        </div>
+
+        <div class="track-copy">
+          <p class="eyebrow">para a minha pessoa favorita</p>
+          <h1 id="hero-title">White Ferrari</h1>
+          <p class="artist">Frank Ocean</p>
+        </div>
+
+        <div class="player-controls">
+          <div class="progress-area" aria-label="Progresso da música">
+            <span id="current-time">0:00</span>
+            <button id="progress-track" class="progress-track" type="button" aria-label="Avançar música">
+              <span id="progress-fill" class="progress-fill"></span>
+            </button>
+            <span id="total-time">4:08</span>
+          </div>
+
+          <div class="control-row" aria-label="Controles do player">
+            <button id="shuffle-btn" class="icon-btn" type="button" aria-pressed="false" aria-label="Ativar aleatório">
+              <i data-lucide="shuffle"></i>
+            </button>
+            <button id="play-btn" class="play-btn" type="button" aria-label="Tocar">
+              <i data-lucide="play"></i>
+            </button>
+            <button id="repeat-btn" class="icon-btn" type="button" aria-pressed="false" aria-label="Ativar repetição">
+              <i data-lucide="repeat-2"></i>
+            </button>
+          </div>
+        </div>
+
+        <section class="counter-panel" aria-labelledby="counter-title">
+          <h2 id="counter-title">Nosso tempo juntos</h2>
+          <div id="love-counter" class="counter-grid" aria-live="polite">
+            <span class="time-box"><strong data-unit="years">0</strong><small>Anos</small></span>
+            <span class="time-box"><strong data-unit="months">0</strong><small>Meses</small></span>
+            <span class="time-box"><strong data-unit="days">0</strong><small>Dias</small></span>
+            <span class="time-box"><strong data-unit="hours">0</strong><small>Horas</small></span>
+            <span class="time-box"><strong data-unit="minutes">0</strong><small>Min</small></span>
+            <span class="time-box"><strong data-unit="seconds">0</strong><small>Seg</small></span>
+          </div>
+        </section>
+
+        <footer class="hero-footer">
+          <p>Desde aquele instante, o mundo ficou mais bonito no detalhe.</p>
+          <button id="story-btn" class="primary-btn" type="button">Nossa História <span aria-hidden="true">→</span></button>
+        </footer>
+      </article>
+    </section>
+
+    <section id="timeline-section" class="screen timeline-screen" aria-labelledby="timeline-title">
+      <div class="section-heading">
+        <p class="eyebrow">capítulos preferidos</p>
+        <h2 id="timeline-title">A linha do tempo</h2>
+      </div>
+
+      <div class="timeline" aria-label="Linha do tempo do casal">
+        <article class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <span class="date-badge">12 jan</span>
+            <h3>Primeiro Olhar</h3>
+            <p>O tipo de momento pequeno que fica enorme quando a memória decide guardar com carinho.</p>
+            <img src="https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&w=700&q=80" alt="Corações de papel em tons rosados">
+          </div>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <span class="date-badge">03 abr</span>
+            <h3>Riso no Meio do Caos</h3>
+            <p>Quando tudo parecia apressado, você chegou como pausa, música baixa e casa acesa.</p>
+            <img src="https://images.unsplash.com/photo-1529258283598-8d6fe60b27f4?auto=format&fit=crop&w=700&q=80" alt="Casal caminhando sob luz dourada">
+          </div>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <span class="date-badge">27 ago</span>
+            <h3>Promessa Sussurrada</h3>
+            <p>Sem plateia e sem pressa, só a certeza bonita de escolher o mesmo caminho.</p>
+            <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=700&q=80" alt="Mãos de casal entrelaçadas">
+          </div>
+        </article>
+
+        <article class="timeline-item reveal">
+          <div class="timeline-marker"></div>
+          <div class="timeline-card">
+            <span class="date-badge">09 dez</span>
+            <h3>Nosso Lugar</h3>
+            <p>A gente descobriu que lar também pode ser uma pessoa olhando de volta.</p>
+            <img src="https://images.unsplash.com/photo-1501901609772-df0848060b33?auto=format&fit=crop&w=700&q=80" alt="Casal abraçado em frente ao mar">
+          </div>
+        </article>
+      </div>
+
+      <button id="game-start-btn" class="primary-btn section-action" type="button">Abrir o desafio <span aria-hidden="true">→</span></button>
+    </section>
+
+    <section id="game-section" class="screen game-screen" aria-labelledby="game-title">
+      <div class="section-heading">
+        <p class="eyebrow">três palavras, uma certeza</p>
+        <h2 id="game-title">Descubra o que você é</h2>
+      </div>
+
+      <div class="game-panel">
+        <div class="word-status" aria-live="polite">
+          <span id="word-step">Palavra 1 de 3</span>
+          <span id="attempt-step">Tentativa 1 de 6</span>
+        </div>
+        <div id="word-grid" class="word-grid" role="grid" aria-label="Tabuleiro do jogo de palavras"></div>
+        <p id="game-message" class="game-message" aria-live="polite">Comece pelo coração: digite uma palavra.</p>
+        <div id="keyboard" class="keyboard" aria-label="Teclado virtual"></div>
+      </div>
+    </section>
+
+    <section id="surprise-section" class="screen surprise-screen" aria-labelledby="surprise-title">
+      <div id="gift-stage" class="gift-stage">
+        <button id="gift-box" class="gift-box" type="button" aria-label="Abrir presente">
+          <span class="gift-lid"></span>
+          <span class="gift-body"></span>
+          <span class="gift-ribbon gift-ribbon--vertical"></span>
+          <span class="gift-ribbon gift-ribbon--horizontal"></span>
+        </button>
+        <p class="gift-hint">toque no presente</p>
+      </div>
+
+      <article id="reveal-card" class="reveal-card" aria-hidden="true">
+        <img
+          src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?auto=format&fit=crop&w=1000&q=85"
+          alt="Gatinho olhando para estrelas em uma atmosfera sonhadora"
+        >
+        <div class="letter">
+          <p class="eyebrow">minha surpresa final</p>
+          <h2 id="surprise-title">Você é o meu universo bonito</h2>
+          <p>
+            Amor, se eu pudesse guardar cada detalhe seu em uma constelação, o céu ficaria pequeno.
+            Eu amo seu jeito de iluminar os dias comuns, sua inteligência que me puxa para frente,
+            sua beleza que aparece até quando você não percebe e essa calma rara de quem transforma
+            presença em abrigo. Obrigado por existir perto de mim, por fazer a vida ganhar trilha
+            sonora, por ser parceira, riso, cuidado e futuro. Te escolher é a parte mais fácil e
+            mais bonita dos meus dias.
+          </p>
+        </div>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
