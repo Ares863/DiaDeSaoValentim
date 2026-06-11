@@ -399,11 +399,8 @@ img {
 .game-panel {
   justify-self: center;
   display: grid;
-  gap: 14px;
-  padding: 12px;
-  width: 100%;
-  max-width: 430px;
-  box-sizing: border-box;
+  gap: 18px;
+  padding: 16px;
 }
 
 .word-status {
@@ -418,15 +415,14 @@ img {
 
 .word-grid {
   display: grid;
-  gap: 5px; 
+  gap: 7px;
   justify-content: center;
-  width: 100%;
-  overflow: hidden; 
+  width: 100%; 
 }
 
 .word-row {
   display: grid;
-  gap: 5px; 
+  gap: 6px; 
   justify-content: center;
   width: 100%;
 }
@@ -434,14 +430,13 @@ img {
 .letter-cell {
   display: grid;
   place-items: center;
-  width: 100%; 
-  max-width: clamp(24px, 7.5vw, 44px); 
-  aspect-ratio: 1 / 1; 
+  width: clamp(34px, 10.8vw, 48px);
+  aspect-ratio: 1;
   border: 1px solid rgba(255, 248, 241, 0.24);
   border-radius: 6px;
   color: var(--off-white);
   background: rgba(255, 248, 241, 0.07);
-  font-size: clamp(0.75rem, 3.8vw, 1.35rem); 
+  font-size: clamp(1rem, 5.4vw, 1.35rem);
   font-weight: 900;
   text-transform: uppercase;
   transition: transform 180ms var(--ease), background 220ms ease, border-color 220ms ease;
