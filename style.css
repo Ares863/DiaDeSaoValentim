@@ -399,8 +399,11 @@ img {
 .game-panel {
   justify-self: center;
   display: grid;
-  gap: 18px;
-  padding: 16px;
+  gap: 14px;
+  padding: 12px;
+  width: 100%;
+  max-width: 430px;
+  box-sizing: border-box;
 }
 
 .word-status {
