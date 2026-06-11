@@ -1,4 +1,4 @@
-const DATA_INICIO = new Date("2023-08-27T20:00:00");
+const DATA_INICIO = new Date("2025-05-03T15:45:00");
 
 const screens = {
   player: document.querySelector("#player-section"),
@@ -7,16 +7,17 @@ const screens = {
   surprise: document.querySelector("#surprise-section")
 };
 
+const audioReal = document.querySelector("#audio-player");
+
 const player = {
   isPlaying: false,
-  isShuffle: false,
+  isShuffle: false, 
   isRepeat: false,
-  duration: 248,
-  elapsed: 0,
-  timer: null
+  duration: 248, 
+  elapsed: 0
 };
 
-const words = ["PARCEIRA", "LINDA", "INTELIGENTE"];
+const words = ["PARCEIRA", "LINDA", "INTELIGENTE", "FORTE", "AMOROSA", "INCRÍVEL", "BRILHANTE", "ESPECIAL", "MARAVILHOSA", "ÚNICA"];
 const maxAttempts = 6;
 const keyboardRows = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
 const messages = [
@@ -59,41 +60,36 @@ function showScreen(name) {
 }
 
 function formatTime(seconds) {
+  if (isNaN(seconds)) return "0:00";
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
   return `${mins}:${secs}`;
 }
 
 function updatePlayerProgress() {
-  progressFill.style.width = `${(player.elapsed / player.duration) * 100}%`;
-  currentTime.textContent = formatTime(player.elapsed);
+  const duracao = audioReal.duration || player.duration;
+  const atual = audioReal.currentTime;
+  
+  progressFill.style.width = `${(atual / duracao) * 100}%`;
+  currentTime.textContent = formatTime(atual);
 }
 
 function togglePlayback() {
-  player.isPlaying = !player.isPlaying;
+  if (audioReal.paused) {
+    audioReal.play().catch(e => console.log("Aguardando interação do usuário para tocar: ", e));
+    player.isPlaying = true;
+  } else {
+    audioReal.pause();
+    player.isPlaying = false;
+  }
+  
+  atualizarInterfaceBotaoPlay();
+}
+
+function atualizarInterfaceBotaoPlay() {
   playBtn.setAttribute("aria-label", player.isPlaying ? "Pausar" : "Tocar");
   playBtn.innerHTML = player.isPlaying ? '<i data-lucide="pause"></i>' : '<i data-lucide="play"></i>';
   renderIcons();
-
-  if (player.isPlaying) {
-    player.timer = window.setInterval(() => {
-      player.elapsed += 1;
-      if (player.elapsed >= player.duration) {
-        player.elapsed = player.isRepeat ? 0 : player.duration;
-        if (!player.isRepeat) {
-          player.isPlaying = false;
-          window.clearInterval(player.timer);
-          playBtn.innerHTML = '<i data-lucide="play"></i>';
-          playBtn.setAttribute("aria-label", "Tocar");
-          renderIcons();
-        }
-      }
-      updatePlayerProgress();
-    }, 1000);
-    return;
-  }
-
-  window.clearInterval(player.timer);
 }
 
 function toggleMode(button, key, activeLabel, inactiveLabel) {
@@ -101,12 +97,18 @@ function toggleMode(button, key, activeLabel, inactiveLabel) {
   button.classList.toggle("is-active", player[key]);
   button.setAttribute("aria-pressed", String(player[key]));
   button.setAttribute("aria-label", player[key] ? activeLabel : inactiveLabel);
+  
+  if (key === "isRepeat") {
+    audioReal.loop = player.isRepeat;
+  }
 }
 
 function setProgress(event) {
   const rect = progressTrack.getBoundingClientRect();
   const ratio = Math.min(Math.max((event.clientX - rect.left) / rect.width, 0), 1);
-  player.elapsed = Math.round(player.duration * ratio);
+  const duracao = audioReal.duration || player.duration;
+  
+  audioReal.currentTime = duracao * ratio;
   updatePlayerProgress();
 }
 
@@ -360,6 +362,8 @@ function paintAttempt(guess, target) {
 
 function updateKeyState(letter, state) {
   const key = keyboard.querySelector(`[data-key="${letter}"]`);
+  if (!key) return; 
+  
   const rank = { absent: 1, present: 2, correct: 3 };
   const current = key.dataset.rank ? Number(key.dataset.rank) : 0;
 
@@ -412,16 +416,36 @@ function bindEvents() {
   gameStartBtn.addEventListener("click", () => showScreen("game"));
   giftBox.addEventListener("click", openGift);
 
+  audioReal.addEventListener("timeupdate", updatePlayerProgress);
+  
+  audioReal.addEventListener("loadedmetadata", () => {
+    totalTime.textContent = formatTime(audioReal.duration);
+  });
+
+  audioReal.addEventListener("ended", () => {
+    if (!player.isRepeat) {
+      player.isPlaying = false;
+      atualizarInterfaceBotaoPlay();
+      audioReal.currentTime = 0;
+      updatePlayerProgress();
+    }
+  });
+
   document.addEventListener("keydown", (event) => {
+    if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") return;
+    
     const key = event.key.toUpperCase();
     if (key === "ENTER" || key === "BACKSPACE" || /^[A-Z]$/.test(key)) {
-      handleKey(key);
+      handleKey(key === "BACKSPACE" ? "⌫" : key);
     }
   });
 }
 
 function init() {
-  totalTime.textContent = formatTime(player.duration);
+  if (audioReal.readyState >= 1) {
+    totalTime.textContent = formatTime(audioReal.duration);
+  }
+  
   updatePlayerProgress();
   updateCounter();
   window.setInterval(updateCounter, 1000);
