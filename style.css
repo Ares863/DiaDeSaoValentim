@@ -417,12 +417,14 @@ img {
   display: grid;
   gap: 7px;
   justify-content: center;
+  width: 100%; 
 }
 
 .word-row {
   display: grid;
-  gap: 7px;
+  gap: 6px; 
   justify-content: center;
+  width: 100%;
 }
 
 .letter-cell {
