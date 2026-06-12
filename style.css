@@ -398,13 +398,13 @@ img {
 
 .game-panel {
   justify-self: center;
-  display: flex;
-  flex-direction: column;
-  gap: 12px; /* Reduz o espaço vertical para caber tudo no ecrã do telemóvel */
-  padding: 10px; /* Margem interna menor nas laterais */
-  width: 100%;
-  max-width: 430px; /* Mantém o visual perfeito no computador */
-  box-sizing: border-box;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  padding: 10px !important;
+  width: 100% !important;
+  max-width: 420px !important; /* Limita o tamanho para ficar estético tanto no PC quanto no celular */
+  box-sizing: border-box !important;
 }
 
 .word-status {
@@ -418,50 +418,43 @@ img {
 }
 
 .word-grid {
-  display: grid;
-  gap: 7px;
-  justify-content: center;
-  width: 100%; 
-}
-
-.word-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  width: 100%;
-  align-items: center;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 6px !important;
+  width: 100% !important;
+  align-items: center !important;
 }
 
 .word-row {
-  display: flex;
-  flex-direction: row;
-  gap: 4px; /* Espaço reduzido entre quadradinhos para não estourar no telemóvel */
-  justify-content: center;
-  width: 100%;
-  max-width: 100%;
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 4px !important; /* Espaço reduzido para caber as 11 letras lado a lado */
+  justify-content: center !important;
+  width: 100% !important;
+  max-width: 100% !important;
 }
 
 .letter-cell {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   
-  /* O segredo: distribui as 11 letras igualmente sem deixar transbordar */
-  flex: 1 1 0%; 
-  min-width: 0; /* Permite que o Flexbox encolha além do tamanho do texto */
-  max-width: 40px; /* Limita o tamanho máximo para palavras curtas no PC */
-  aspect-ratio: 1 / 1; /* Força a ser sempre um quadrado perfeito */
+  /* Divide o espaço horizontal igualmente por 11, não importa o tamanho da tela */
+  flex: 1 1 0% !important; 
+  min-width: 0 !important; /* Permite que a célula encolha abaixo do tamanho do texto */
+  max-width: 38px !important; /* Tamanho limite para não ficar gigante no computador */
+  aspect-ratio: 1 / 1 !important; /* Garante que continue um quadrado perfeito */
   
-  border: 1px solid rgba(255, 248, 241, 0.24);
-  border-radius: 6px;
-  color: var(--off-white);
-  background: rgba(255, 248, 241, 0.07);
+  border: 1px solid rgba(255, 248, 241, 0.24) !important;
+  border-radius: 6px !important;
+  color: var(--off-white) !important;
+  background: rgba(255, 248, 241, 0.07) !important;
   
-  /* Faz o tamanho da letra acompanhar o tamanho do quadradinho */
-  font-size: clamp(0.75rem, 3.5vw, 1.25rem); 
-  font-weight: 900;
-  text-transform: uppercase;
-  transition: transform 180ms var(--ease), background 220ms ease, border-color 220ms ease;
+  /* Reduz o texto proporcionalmente para a letra não transbordar do quadradinho */
+  font-size: clamp(0.7rem, 3.2vw, 1.2rem) !important; 
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  transition: transform 180ms var(--ease), background 220ms ease, border-color 220ms ease !important;
 }
 
 .letter-cell.is-filled {
