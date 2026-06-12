@@ -428,7 +428,7 @@ img {
 .word-row {
   display: flex !important;
   flex-direction: row !important;
-  gap: 4px !important; /* Espaço reduzido para caber as 11 letras lado a lado */
+  gap: 4px !important; /* Espaço ideal para as 11 letras caberem lado a lado */
   justify-content: center !important;
   width: 100% !important;
   max-width: 100% !important;
@@ -439,18 +439,18 @@ img {
   align-items: center !important;
   justify-content: center !important;
   
-  /* Divide o espaço horizontal igualmente por 11, não importa o tamanho da tela */
+  /* Divide o espaço horizontal igualmente, forçando a caber no ecrã do telemóvel */
   flex: 1 1 0% !important; 
-  min-width: 0 !important; /* Permite que a célula encolha abaixo do tamanho do texto */
-  max-width: 38px !important; /* Tamanho limite para não ficar gigante no computador */
-  aspect-ratio: 1 / 1 !important; /* Garante que continue um quadrado perfeito */
+  min-width: 0 !important; 
+  max-width: 38px !important; /* Limita o tamanho no computador */
+  aspect-ratio: 1 / 1 !important; /* Força a ser sempre um quadrado perfeito */
   
   border: 1px solid rgba(255, 248, 241, 0.24) !important;
   border-radius: 6px !important;
   color: var(--off-white) !important;
-  background: rgba(255, 248, 241, 0.07) !important;
+  background: rgba(255, 248, 241, 0.07) !important; /* Cor padrão (vazia) */
   
-  /* Reduz o texto proporcionalmente para a letra não transbordar do quadradinho */
+  /* Faz a letra diminuir junto com o quadradinho em ecrãs pequenos */
   font-size: clamp(0.7rem, 3.2vw, 1.2rem) !important; 
   font-weight: 900 !important;
   text-transform: uppercase !important;
@@ -463,19 +463,23 @@ img {
 }
 
 .letter-cell.correct {
-  background: var(--green);
-  border-color: var(--green);
+  background: var(--green) !important;
+  border-color: var(--green) !important;
+  color: var(--off-white) !important;
 }
 
+/* AMARELO: Letra existe, mas na posição errada */
 .letter-cell.present {
-  background: var(--gold);
-  border-color: var(--gold);
-  color: var(--graphite);
+  background: var(--gold) !important;
+  border-color: var(--gold) !important;
+  color: var(--graphite) !important; /* Escurece a letra para dar leitura no fundo amarelo */
 }
 
+/* CINZA ESCURO: Letra não existe na palavra */
 .letter-cell.absent {
-  background: var(--gray-key);
-  border-color: var(--gray-key);
+  background: var(--graphite-soft) !important;
+  border-color: var(--graphite-soft) !important;
+  opacity: 0.6 !important;
 }
 
 .game-message {
