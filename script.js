@@ -17,7 +17,7 @@ const player = {
   elapsed: 0
 };
 
-const words = ["PARCEIRA", "LINDA", "INTELIGENTE", "FORTE", "AMOROSA", "INCRÍVEL", "BRILHANTE", "ESPECIAL", "MARAVILHOSA", "ÚNICA"];
+const words = ["PARCEIRA", "LINDA", "INTELIGENTE", "FORTE", "AMOROSA", "INCRIVEL", "BRILHANTE", "ESPECIAL", "MARAVILHOSA", "UNICA"];
 const maxAttempts = 6;
 const keyboardRows = ["QWERTYUIOP", "ASDFGHJKL", "ZXCVBNM"];
 const messages = [
