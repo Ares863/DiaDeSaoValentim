@@ -189,16 +189,14 @@ function activeWord() {
 }
 
 function renderGrid() {
-  const wordLength = activeWord().length;
   wordGrid.innerHTML = "";
-  wordGrid.style.gridTemplateRows = `repeat(${maxAttempts}, auto)`;
 
   for (let row = 0; row < maxAttempts; row += 1) {
     const rowElement = document.createElement("div");
     rowElement.className = "word-row";
-    rowElement.style.gridTemplateColumns = `repeat(${wordLength}, auto)`;
 
-    for (let col = 0; col < wordLength; col += 1) {
+    // Cria as células perfeitamente adaptadas ao tamanho da palavra atual
+    for (let col = 0; col < activeWord().length; col += 1) {
       const cell = document.createElement("span");
       cell.className = "letter-cell";
       cell.setAttribute("role", "gridcell");
@@ -416,6 +414,7 @@ function bindEvents() {
   gameStartBtn.addEventListener("click", () => showScreen("game"));
   giftBox.addEventListener("click", openGift);
 
+  // ESSAS TRÊS REGRAS ABAIXO FAZEM O SEU AUDIO-PLAYER CONTROLAR O SITE:
   audioReal.addEventListener("timeupdate", updatePlayerProgress);
   
   audioReal.addEventListener("loadedmetadata", () => {
@@ -431,13 +430,12 @@ function bindEvents() {
     }
   });
 
+  // Captura do teclado físico corrigida
   document.addEventListener("keydown", (event) => {
     if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") return;
     
     let key = event.key.toUpperCase();
     if (key === "BACKSPACE") key = "⌫";
-    
-    // Remove qualquer acentuação residual se o usuário digitar usando teclas mortas de acento
     key = key.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 
     if (key === "ENTER" || key === "⌫" || /^[A-Z]$/.test(key)) {
