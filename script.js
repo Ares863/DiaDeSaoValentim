@@ -434,9 +434,14 @@ function bindEvents() {
   document.addEventListener("keydown", (event) => {
     if (event.target.tagName === "INPUT" || event.target.tagName === "TEXTAREA") return;
     
-    const key = event.key.toUpperCase();
-    if (key === "ENTER" || key === "BACKSPACE" || /^[A-Z]$/.test(key)) {
-      handleKey(key === "BACKSPACE" ? "⌫" : key);
+    let key = event.key.toUpperCase();
+    if (key === "BACKSPACE") key = "⌫";
+    
+    // Remove qualquer acentuação residual se o usuário digitar usando teclas mortas de acento
+    key = key.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+    if (key === "ENTER" || key === "⌫" || /^[A-Z]$/.test(key)) {
+      handleKey(key);
     }
   });
 }
